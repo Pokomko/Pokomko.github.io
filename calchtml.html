@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Калькулятор</title>
+
+  <style>
+    #fon {
+      padding: 10px;
+      display: inline-block;
+      background: blue;
+    }
+    #awd {
+      font-size: xx-large;
+      font-weight: bold;
+      color: yellow;
+      text-align: center;
+      font-family: sans-serif;
+    }
+    #display {
+      text-align: right;
+      width: 634px;
+      height: 100px;
+      font-size: 35pt;
+      margin: 5px;
+    }
+
+    button {
+      width: 150px;
+      height: 80px;
+      font-size: 35pt;
+      margin: 5px;
+      background-color: yellow;
+      font-weight: bold;
+      color: blue;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="fon">
+    <div id="fon2">
+      <div id="awd">Калькулятор для Миши Лоха</div><br>
+      <input id="display"><br>
+      <button onclick="Vvod(this)">7</button>
+      <button onclick="Vvod(this)">8</button>
+      <button onclick="Vvod(this)">9</button>
+      <button onclick="Vvod(this)">+</button><br>
+      <button onclick="Vvod(this)">4</button>
+      <button onclick="Vvod(this)">5</button>
+      <button onclick="Vvod(this)">6</button>
+      <button onclick="Vvod(this)">-</button><br>
+      <button onclick="Vvod(this)">1</button>
+      <button onclick="Vvod(this)">2</button>
+      <button onclick="Vvod(this)">3</button>
+      <button onclick="Vvod(this)">*</button><br>
+      <button onclick="Clear(this)">С</button>
+      <button onclick="Vvod(this)">0</button>
+      <button onclick="Result(this)">=</button>
+      <button onclick="Vvod(this)">/</button>
+    </div>
+    <div>
+      <script>
+        var abc = document.getElementById("display")
+        function Vvod(param) {
+          console.log(param.textContent);
+          abc.value += param.textContent;
+
+        }
+        function Clear() {
+          abc.value = '';
+        }
+        function Result() {
+          try {
+            abc.value = eval(abc.value);
+          } catch (error) {
+            alert("ты лох");
+            Clear();
+          }
+        }
+
+
+      </script>
+</body>
+
+</html>
