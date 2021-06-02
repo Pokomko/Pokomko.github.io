@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Крестики Нолики для Хохлов</title>
+
+    <style>
+        #poe {
+            font-weight: bold;
+            background-color: yellow;
+            color: blue;
+            text-align: center;
+            font-size: 150pt;
+        }
+
+        button {
+            width: 150px;
+            height: 80px;
+            font-size: 35pt;
+            margin: 5px;
+            background-color: yellow;
+
+            font-weight: bold;
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <button onclick="Turn(this)">-</button>
+    <button onclick="Turn(this)">-</button>
+    <button onclick="Turn(this)">-</button><br>
+    <button onclick="Turn(this)">-</button>
+    <button onclick="Turn(this)">-</button>
+    <button onclick="Turn(this)">-</button><br>
+    <button onclick="Turn(this)">-</button>
+    <button onclick="Turn(this)">-</button>
+    <button onclick="Turn(this)">-</button><br><br><br>
+    <button onclick="reset()">R</button>
+    <div id="poe"></div>
+    <script>
+        var buttons = document.getElementsByTagName("button");
+        alert("Крестики первые");
+        var i = false;
+        function Turn(button) {
+            if (button.textContent !== '-') {
+                return;
+            }
+            if (i === true) {
+                button.textContent = 'O';
+                i = false;
+            }
+            else {
+                button.textContent = 'X';
+                i = true;
+
+            }
+            setTimeout(checkWin, 10);
+        }
+        function reset() {
+            for (var j = 0; j < 9; j++) {
+                buttons[j].textContent = '-';
+            }
+        }
+        function sayWin(winner) {
+            document.getElementById("poe").innerHTML = "Миша ЛОХ <br> выйграл " + winner;
+            reset();
+        }
+        function checkWin() {
+
+            if (buttons[0].textContent === buttons[4].textContent && buttons[4].textContent === buttons[8].textContent && buttons[4].textContent !== '-') {
+                sayWin(buttons[0].textContent)
+            }
+            if (buttons[2].textContent === buttons[4].textContent && buttons[4].textContent === buttons[6].textContent && buttons[2].textContent !== '-') {
+                sayWin(buttons[2].textContent)
+            }
+            for (var j = 0; j < 9; j += 3) {
+                if (buttons[j].textContent === buttons[j + 1].textContent && buttons[j + 1].textContent === buttons[j + 2].textContent && buttons[j].textContent !== '-') {
+                    sayWin(buttons[j].textContent)
+                }
+            }
+            for (var j = 0; j < 3; j += 1) {
+                if (buttons[j].textContent === buttons[j + 3].textContent && buttons[j + 3].textContent === buttons[j + 6].textContent && buttons[j].textContent !== '-') {
+                    sayWin(buttons[j].textContent)
+                }
+            }
+        }
+    </script>
+</body>
+
+
+</html>
