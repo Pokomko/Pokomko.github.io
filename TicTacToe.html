@@ -37,10 +37,11 @@
     <button onclick="Turn(this)">-</button>
     <button onclick="Turn(this)">-</button>
     <button onclick="Turn(this)">-</button><br><br><br>
-    <button onclick="reset()">R</button>
+    <button onclick="reset()">Reset</button>
     <div id="poe"></div>
     <script>
         var buttons = document.getElementsByTagName("button");
+        var display = document.getElementById("poe")
         alert("Крестики первые");
         var i = false;
         function Turn(button) {
@@ -59,13 +60,14 @@
             setTimeout(checkWin, 10);
         }
         function reset() {
+            display.innerHTML = '';
             for (var j = 0; j < 9; j++) {
                 buttons[j].textContent = '-';
+
             }
         }
         function sayWin(winner) {
-            document.getElementById("poe").innerHTML = "Миша ЛОХ <br> выйграл " + winner;
-            reset();
+            display.innerHTML = "Миша ЛОХ <br> выйграл " + winner;
         }
         function checkWin() {
 
