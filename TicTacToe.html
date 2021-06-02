@@ -44,33 +44,41 @@
         var display = document.getElementById("poe")
         alert("Крестики первые");
         var i = false;
+        var finished = false;
+
         function Turn(button) {
-            if (button.textContent !== '-') {
+            if (finished || button.textContent !== '-') {
+               
                 return;
+                
             }
             if (i === true) {
+
                 button.textContent = 'O';
                 i = false;
             }
             else {
                 button.textContent = 'X';
                 i = true;
-
             }
             setTimeout(checkWin, 10);
         }
+
         function reset() {
+            finished = false;
             display.innerHTML = '';
             for (var j = 0; j < 9; j++) {
                 buttons[j].textContent = '-';
 
             }
         }
+
         function sayWin(winner) {
+            finished = true;
             display.innerHTML = "Миша ЛОХ <br> выйграл " + winner;
         }
-        function checkWin() {
 
+        function checkWin() {
             if (buttons[0].textContent === buttons[4].textContent && buttons[4].textContent === buttons[8].textContent && buttons[4].textContent !== '-') {
                 sayWin(buttons[0].textContent)
             }
