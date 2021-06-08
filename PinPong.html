@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>ХОХОЛ</title>
+    <style>
+        #display {
+            font-weight: bold;
+            background-color: yellow;
+            color: blue;
+            text-align: center;
+            font-size: 50pt;
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="myCanvas" width="900" height="510" style="border:1px solid #000000;">
+    </canvas>
+    <div>
+        ПРАВИЛА:<br>
+        1. Space сброс<br>
+        2. Управление первой платформой: W и S<br>
+        3. Управление второй платформой: Up и Down<br>
+
+    </div>
+    <div id="display"></div>
+
+
+    <script>
+        let keysPressed = {};
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+        var display = document.getElementById("display");
+
+        var delataYPlatform = 6;
+        var platform1 = {
+            x: 0,
+            y: canvas.height / 2 - 70 / 2,
+            width: 10,
+            height: 70,
+            score: 0,
+            movePaddleUp: function () {
+                if (platform1.y > 0) {
+                    platform1.y += -delataYPlatform
+                }
+            },
+            movePaddleDown: function () {
+                if (platform1.y + platform1.height < canvas.height) {
+                    platform1.y += delataYPlatform
+                }
+            }
+        };
+
+        var platform2 = {
+            x: canvas.width - 10,
+            y: canvas.height / 2 - 70 / 2,
+            width: 10,
+            height: 70,
+            score: 0,
+            movePaddleUp: function () {
+                if (platform2.y > 0) {
+                    platform2.y += -delataYPlatform
+                }
+            },
+            movePaddleDown: function () {
+                if (platform2.y + platform2.height <= canvas.height) {
+                    platform2.y += delataYPlatform
+                }
+            }
+        };
+        var ball = {
+            size: 8,
+            x: canvas.width / 2,
+            y: canvas.height / 2,
+            dx: 0,
+            dy: 0
+        };
+
+        function render() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            executeMoves();
+
+            ctx.beginPath();
+            ctx.moveTo(canvas.width / 2, 0);
+            ctx.lineTo(canvas.width / 2, canvas.height);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.arc(ball.x, ball.y, 8, 0, 2 * Math.PI);
+            ctx.stroke();
+
+            ctx.rect(platform1.x, platform1.y, platform1.width, platform1.height);
+            ctx.rect(platform2.x, platform2.y, platform2.width, platform2.height);
+            ctx.fill();
+
+            ctx.font = "30px serif";
+            ctx.fillText(platform1.score, (canvas.width / 2) - 32, 40, 10);
+            ctx.fillText(platform2.score, (canvas.width / 2) + 20, 40, 10);
+
+            ball.x += ball.dx;
+            ball.y += ball.dy;
+            if (ball.x >= canvas.width - ball.size || ball.x <= 0 + ball.size) {
+                ball.dx *= -1;
+            }
+            if (ball.y >= canvas.height - ball.size || ball.y <= 0 + ball.size) {
+                ball.dy *= -1;
+            }
+
+            let tolerance = 6;
+            if ((ball.y < platform1.y - tolerance || ball.y > platform1.y + platform1.height - tolerance) && ball.x <= ball.size) {
+                console.log("Ты лох");
+                window.cancelAnimationFrame(requestId);
+                display.innerHTML = "1 проиграл ";
+                platform2.score++;
+            } else if ((ball.y < platform2.y - tolerance || ball.y > platform2.y + platform1.height - tolerance) && ball.x >= canvas.width - ball.size) {
+                console.log("Ты лох");
+                window.cancelAnimationFrame(requestId);
+                display.innerHTML = "2 проиграл ";
+                platform1.score++;
+            } else {
+                requestId = window.requestAnimationFrame(render);
+            }
+        }
+
+        function executeMoves() {
+            Object.keys(controller).forEach(key => {
+                controller[key].pressed && controller[key].func()
+            })
+        }
+
+        function reset() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (requestId) {
+                window.cancelAnimationFrame(requestId);
+            }
+            requestId = window.requestAnimationFrame(render);
+
+            display.innerHTML = '';
+            ball.x = 400;
+            ball.y = 250;
+            platform1.y = 220;
+            platform2.y = 220;
+        }
+
+        const controller = {
+            87: { pressed: false, func: platform1.movePaddleUp },
+            83: { pressed: false, func: platform1.movePaddleDown },
+            38: { pressed: false, func: platform2.movePaddleUp },
+            40: { pressed: false, func: platform2.movePaddleDown },
+        }
+
+        document.addEventListener("keydown", (e) => {
+            if (controller[e.keyCode]) {
+                controller[e.keyCode].pressed = true
+            }
+        })
+        document.addEventListener("keyup", (e) => {
+            if (controller[e.keyCode]) {
+                controller[e.keyCode].pressed = false
+            }
+        })
+
+        document.addEventListener("keydown", (e) => {
+            if (e.keyCode === 32) {
+                reset();
+            }
+        })
+        setTimeout(() => {
+            ball.dx = 5;
+            ball.dy = 5
+        }, 1000);
+        let requestId = window.requestAnimationFrame(render);
+
+    </script>
+
+</body>
+
+</html>
