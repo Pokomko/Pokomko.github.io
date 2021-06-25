@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>FlappyBird</title>
+    <style>
+        #display {
+            font-weight: bold;
+            background-color: yellow;
+            color: blue;
+            text-align: center;
+            font-size: 50pt;
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="myCanvas" width="600" height="560" style="border:1px solid #000000;">
+    </canvas>
+    <div id="display"></div>
+    <script>
+        const getRandomColumnPosition = () => Math.floor((Math.random() * 430) + 350)
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+        var delataBird = 5;
+        var display = document.getElementById("display");
+        var bird = {
+            y: canvas.height / 2,
+            x: 100,
+            size: 20,
+            movePaddleUp: function () {
+                if (bird.y - 25 >= 0) {
+                    bird.y += -delataBird
+                }
+            },
+            movePaddleDown: function () {
+                if (bird.y <= canvas.height - 25) {
+                    bird.y += delataBird
+                }
+            }
+        };
+        var delta = 5;
+        var dirka = 150;
+
+        var collums = {
+            cords: [
+                { x1: 380, y1: getRandomColumnPosition(), x2: 420, y2: 560 },
+                { x1: 600, y1: getRandomColumnPosition(), x2: 640, y2: 560 },
+                { x1: 820, y1: getRandomColumnPosition(), x2: 860, y2: 560 },]
+        };
+
+        function render() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            executeMoves();
+
+            ctx.beginPath();
+            ctx.arc(bird.x, bird.y, 20, 0, 2 * Math.PI);
+            ctx.stroke();
+            if (collums.cords[0].y1 >= 520) {
+                collums.cords[0].y1 = getRandomColumnPosition();
+            };
+            if (collums.cords[1].y1 >= 520) {
+                collums.cords[1].y1 = getRandomColumnPosition();
+            };
+            if (collums.cords[2].y1 >= 520) {
+                collums.cords[2].y1 = getRandomColumnPosition();
+            };
+
+
+
+            ctx.rect(collums.cords[0].x1, collums.cords[0].y1, collums.cords[0].x2 - collums.cords[0].x1, collums.cords[0].y2 - collums.cords[0].y1);
+            ctx.rect(collums.cords[1].x1, collums.cords[1].y1, collums.cords[1].x2 - collums.cords[1].x1, collums.cords[1].y2 - collums.cords[1].y1);
+            ctx.rect(collums.cords[2].x1, collums.cords[2].y1, collums.cords[2].x2 - collums.cords[2].x1, collums.cords[2].y2 - collums.cords[2].y1);
+            ctx.rect(collums.cords[0].x1, 0, collums.cords[0].x2 - collums.cords[0].x1, collums.cords[0].y1 - dirka);
+            ctx.rect(collums.cords[1].x1, 0, collums.cords[1].x2 - collums.cords[1].x1, collums.cords[1].y1 - dirka);
+            ctx.rect(collums.cords[2].x1, 0, collums.cords[2].x2 - collums.cords[2].x1, collums.cords[2].y1 - dirka);
+            ctx.fill();
+
+
+            for (var i = 0; i < 3; i++) {
+                collums.cords[i].x1 -= delta
+                collums.cords[i].x2 -= delta
+                if (collums.cords[i].x1 < -20) {
+                    collums.cords[i].x1 = canvas.height + 80;
+                    collums.cords[i].x2 = canvas.height + 120;
+                    сollums.cords[i].y1 = getRandomColumnPosition();
+                }
+
+            }
+
+
+
+            requestId = window.requestAnimationFrame(render);
+        }
+
+        function executeMoves() {
+            Object.keys(controller).forEach(key => {
+                controller[key].pressed && controller[key].func()
+            })
+        }
+
+        const controller = {
+            38: { pressed: false, func: bird.movePaddleUp },
+            40: { pressed: false, func: bird.movePaddleDown },
+        }
+
+        document.addEventListener("keydown", (e) => {
+            if (controller[e.keyCode]) {
+                controller[e.keyCode].pressed = true
+            }
+        })
+        document.addEventListener("keyup", (e) => {
+            if (controller[e.keyCode]) {
+                controller[e.keyCode].pressed = false
+            }
+        })
+
+        let requestId = window.requestAnimationFrame(render);
+    </script>
+
+</body>
+
+</html>
