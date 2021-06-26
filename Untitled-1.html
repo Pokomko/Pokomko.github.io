@@ -42,7 +42,7 @@
             }
         };
         var delta = 5;
-        var dirka = 150;
+        var hole = 150;
 
         var columns = {
             cords: [
@@ -82,7 +82,7 @@
 
             for (var i = 0; i < 3; i++) {
                 ctx.rect(columns.cords[i].x1, columns.cords[i].y1, columns.cords[i].x2 - columns.cords[i].x1, columns.cords[i].y2 - columns.cords[i].y1);
-                ctx.rect(columns.cords[i].x1, 0, columns.cords[i].x2 - columns.cords[i].x1, columns.cords[i].y1 - dirka);
+                ctx.rect(columns.cords[i].x1, 0, columns.cords[i].x2 - columns.cords[i].x1, columns.cords[i].y1 - hole);
                 ctx.fill();
                 columns.cords[i].x1 -= delta
                 columns.cords[i].x2 -= delta
