@@ -30,14 +30,11 @@
             y: canvas.height / 2,
             x: 100,
             size: 20,
+            dy: 0,
             movePaddleUp: function () {
                 if (bird.y - 25 >= 0) {
-                    bird.y += -delataBird
-                }
-            },
-            movePaddleDown: function () {
-                if (bird.y <= canvas.height - 25) {
-                    bird.y += delataBird
+                    bird.dy += -1;
+                    
                 }
             }
         };
@@ -52,6 +49,11 @@
         };
 
         function render() {
+            bird.dy += 0.125;
+            bird.y += bird.dy;
+            if (bird.y>canvas.height) {
+                
+            }
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             executeMoves();
 
@@ -68,16 +70,6 @@
                 columns.cords[2].y1 = getRandomColumnPosition();
             };
 
-
-
-            /*ctx.rect(collums.cords[0].x1, collums.cords[0].y1, collums.cords[0].x2 - collums.cords[0].x1, collums.cords[0].y2 - collums.cords[0].y1);
-            ctx.rect(collums.cords[1].x1, collums.cords[1].y1, collums.cords[1].x2 - collums.cords[1].x1, collums.cords[1].y2 - collums.cords[1].y1);
-            ctx.rect(collums.cords[2].x1, collums.cords[2].y1, collums.cords[2].x2 - collums.cords[2].x1, collums.cords[2].y2 - collums.cords[2].y1);
-            
-            ctx.rect(collums.cords[0].x1, 0, collums.cords[0].x2 - collums.cords[0].x1, collums.cords[0].y1 - dirka);
-            ctx.rect(collums.cords[1].x1, 0, collums.cords[1].x2 - collums.cords[1].x1, collums.cords[1].y1 - dirka);
-            ctx.rect(collums.cords[2].x1, 0, collums.cords[2].x2 - collums.cords[2].x1, collums.cords[2].y1 - dirka);
-            ctx.fill();*/
 
 
             for (var i = 0; i < 3; i++) {
@@ -107,7 +99,7 @@
 
         const controller = {
             38: { pressed: false, func: bird.movePaddleUp },
-            40: { pressed: false, func: bird.movePaddleDown },
+            32: { pressed: false, func: bird.movePaddleUp },
         }
 
         document.addEventListener("keydown", (e) => {
