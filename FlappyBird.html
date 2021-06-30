@@ -20,13 +20,14 @@
     </canvas>
     <div id="display"></div>
     <script>
-        const getRandomColumnPosition = () => Math.floor((Math.random() * (460 - 350 + 1)) + 350);
+        const getRandomColumnPosition = () => Math.floor((Math.random() * (500 - 350 + 1)) + 350);
         var canvas = document.getElementById("myCanvas");
         var ctx = canvas.getContext("2d");
         var delataBird = 5;
         var display = document.getElementById("display");
         var delta = 5;
         var hole = 180;
+        var op = 0.200;
 
         var bird = {
             y: canvas.height / 2,
@@ -49,15 +50,15 @@
         };
 
         function render() {
-            if (bird.y - bird.size <= 0) {
+            if (bird.y - bird.size <= 0 || bird.y >= canvas.height) {
                 display.innerHTML = "Проиграл ";
                 delta = 0;
+                bird.dy = 0;
+                op = 0;
                 setTimeout(() => { location.reload(); }, 1000);
             }
-            bird.dy += 0.150;
+            bird.dy += op;
             bird.y += bird.dy;
-            if (bird.y > canvas.height) {
-            }
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             executeMoves();
             ctx.beginPath();
