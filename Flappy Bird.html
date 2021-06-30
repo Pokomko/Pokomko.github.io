@@ -21,7 +21,8 @@
     </canvas>
     <div id="display"></div>
     <script>
-        const getRandomColumnPosition = () => Math.floor((Math.random() * 430) + 350)
+        const getRandomColumnPosition = () => Math.floor((Math.random() * 430) + 350);
+        var op = 8;
         var canvas = document.getElementById("myCanvas");
         var ctx = canvas.getContext("2d");
         var delataBird = 5;
@@ -33,13 +34,14 @@
             dy: 0,
             movePaddleUp: function () {
                 if (bird.y - bird.size >= 0) {
-                    bird.dy -= 1;
+                    bird.dy -= op;
+                    op = 0;
                 };
 
             }
         };
         var delta = 5;
-        var hole = 150;
+        var hole = 180;
 
         var columns = {
             cords: [
@@ -51,6 +53,9 @@
         function render() {
             if (bird.y - bird.size <= 0) {
                 display.innerHTML = "Проиграл ";
+                delta = 0;
+                setTimeout(() => { location.reload(); }, 1000);
+
             }
             bird.dy += 0.125;
             bird.y += bird.dy;
@@ -113,6 +118,7 @@
         document.addEventListener("keyup", (e) => {
             if (controller[e.keyCode]) {
                 controller[e.keyCode].pressed = false
+                op = 8;
             }
         })
 
