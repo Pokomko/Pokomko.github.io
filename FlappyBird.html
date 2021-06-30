@@ -52,10 +52,7 @@
         function render() {
             if (bird.y - bird.size <= 0 || bird.y >= canvas.height) {
                 display.innerHTML = "Проиграл ";
-                delta = 0;
-                bird.dy = 0;
-                op = 0;
-                window.cancelAnimationFrame(requestId);
+                return;
             }
             bird.dy += op;
             bird.y += bird.dy;
