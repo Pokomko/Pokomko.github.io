@@ -32,10 +32,10 @@
             size: 20,
             dy: 0,
             movePaddleUp: function () {
-                if (bird.y - 25 >= 0) {
-                    bird.dy += -1;
-                    
-                }
+                if (bird.y - bird.size >= 0) {
+                    bird.dy -= 1;
+                };
+
             }
         };
         var delta = 5;
@@ -49,10 +49,13 @@
         };
 
         function render() {
+            if (bird.y - bird.size <= 0) {
+                display.innerHTML = "Проиграл ";
+            }
             bird.dy += 0.125;
             bird.y += bird.dy;
-            if (bird.y>canvas.height) {
-                
+            if (bird.y > canvas.height) {
+
             }
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             executeMoves();
