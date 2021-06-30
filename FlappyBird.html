@@ -22,7 +22,6 @@
     <div id="display"></div>
     <script>
         const getRandomColumnPosition = () => Math.floor((Math.random() * 430) + 350);
-        var op = 8;
         var canvas = document.getElementById("myCanvas");
         var ctx = canvas.getContext("2d");
         var delataBird = 5;
@@ -34,8 +33,7 @@
             dy: 0,
             movePaddleUp: function () {
                 if (bird.y - bird.size >= 0) {
-                    bird.dy -= op;
-                    op = 0;
+                    bird.dy = -3
                 };
 
             }
@@ -46,8 +44,8 @@
         var columns = {
             cords: [
                 { x1: 380, y1: getRandomColumnPosition(), x2: 420, y2: 560 },
-                { x1: 600, y1: getRandomColumnPosition(), x2: 640, y2: 560 },
-                { x1: 820, y1: getRandomColumnPosition(), x2: 860, y2: 560 },]
+                { x1: 620, y1: getRandomColumnPosition(), x2: 660, y2: 560 },
+                { x1: 860, y1: getRandomColumnPosition(), x2: 900, y2: 560 },]
         };
 
         function render() {
@@ -57,7 +55,7 @@
                 setTimeout(() => { location.reload(); }, 1000);
 
             }
-            bird.dy += 0.125;
+            bird.dy += 0.150;
             bird.y += bird.dy;
             if (bird.y > canvas.height) {
 
@@ -68,15 +66,6 @@
             ctx.beginPath();
             ctx.arc(bird.x, bird.y, 20, 0, 2 * Math.PI);
             ctx.stroke();
-            if (columns.cords[0].y1 >= 520) {
-                columns.cords[0].y1 = getRandomColumnPosition();
-            };
-            if (columns.cords[1].y1 >= 520) {
-                columns.cords[1].y1 = getRandomColumnPosition();
-            };
-            if (columns.cords[2].y1 >= 520) {
-                columns.cords[2].y1 = getRandomColumnPosition();
-            };
 
 
 
@@ -87,8 +76,8 @@
                 columns.cords[i].x1 -= delta
                 columns.cords[i].x2 -= delta
                 if (columns.cords[i].x1 < 0 - (columns.cords[i].x2 - columns.cords[i].x1)) {
-                    columns.cords[i].x1 = canvas.height + 80;
-                    columns.cords[i].x2 = canvas.height + 120;
+                    columns.cords[i].x1 = canvas.height + 100;
+                    columns.cords[i].x2 = canvas.height + 140;
                     columns.cords[i].y1 = getRandomColumnPosition();
                 }
 
@@ -118,7 +107,6 @@
         document.addEventListener("keyup", (e) => {
             if (controller[e.keyCode]) {
                 controller[e.keyCode].pressed = false
-                op = 8;
             }
         })
 
