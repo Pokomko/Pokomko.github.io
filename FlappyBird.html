@@ -55,7 +55,7 @@
                 delta = 0;
                 bird.dy = 0;
                 op = 0;
-                setTimeout(() => { location.reload(); }, 1000);
+                window.cancelAnimationFrame(requestId);
             }
             bird.dy += op;
             bird.y += bird.dy;
