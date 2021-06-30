@@ -66,8 +66,16 @@
             ctx.beginPath();
             ctx.arc(bird.x, bird.y, 20, 0, 2 * Math.PI);
             ctx.stroke();
-
-
+            
+            if (columns.cords[0].y1 >= 520) {
+                columns.cords[0].y1 = getRandomColumnPosition();
+            };
+            if (columns.cords[1].y1 >= 520) {
+                columns.cords[1].y1 = getRandomColumnPosition();
+            };
+            if (columns.cords[2].y1 >= 520) {
+                columns.cords[2].y1 = getRandomColumnPosition();
+            };
 
             for (var i = 0; i < 3; i++) {
                 ctx.rect(columns.cords[i].x1, columns.cords[i].y1, columns.cords[i].x2 - columns.cords[i].x1, columns.cords[i].y2 - columns.cords[i].y1);
