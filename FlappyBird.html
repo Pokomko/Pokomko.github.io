@@ -16,133 +16,11 @@
 </head>
 
 <body>
-
     <canvas id="myCanvas" width="600" height="560" style="border:1px solid #000000;">
     </canvas>
     <div id="display"></div>
     <script>
-        const getRandomColumnPosition = () => Math.floor((Math.random() * 430) + 350);
-        var op = 8;
-        var canvas = document.getElementById("myCanvas");
-        var ctx = canvas.getContext("2d");
-        var delataBird = 5;
-        var display = document.getElementById("display");
-        var bird = {
-            y: canvas.height / 2,
-            x: 100,
-            size: 20,
-            dy: 0,
-            movePaddleUp: function () {
-                if (bird.y - bird.size >= 0) {
-                    bird.dy = -3
-                    op = 0;
-                };
-
-            }
-        };
-        var delta = 5;
-        var hole = 180;
-
-        var columns = {
-            cords: [
-                { x1: 380, y1: getRandomColumnPosition(), x2: 420, y2: 560 },
-                { x1: 620, y1: getRandomColumnPosition(), x2: 660, y2: 560 },
-                { x1: 860, y1: getRandomColumnPosition(), x2: 900, y2: 560 },]
-        };
-
-        function render() {
-            if (bird.y - bird.size <= 0) {
-                display.innerHTML = "Проиграл ";
-                delta = 0;
-                setTimeout(() => { location.reload(); }, 1000);
-
-            }
-            bird.dy += 0.150;
-            bird.y += bird.dy;
-            if (bird.y > canvas.height) {
-
-            }
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            executeMoves();
-
-            ctx.beginPath();
-            ctx.arc(bird.x, bird.y, 20, 0, 2 * Math.PI);
-            ctx.stroke();
-
-
-
-            for (var i = 0; i < 3; i++) {
-                ctx.rect(columns.cords[i].x1, columns.cords[i].y1, columns.cords[i].x2 - columns.cords[i].x1, columns.cords[i].y2 - columns.cords[i].y1);
-                ctx.rect(columns.cords[i].x1, 0, columns.cords[i].x2 - columns.cords[i].x1, columns.cords[i].y1 - hole);
-                ctx.fill();
-                columns.cords[i].x1 -= delta
-                columns.cords[i].x2 -= delta
-                if (columns.cords[i].x1 < 0 - (columns.cords[i].x2 - columns.cords[i].x1)) {
-                    columns.cords[i].x1 = canvas.height + 100;
-                    columns.cords[i].x2 = canvas.height + 140;
-                    columns.cords[i].y1 = getRandomColumnPosition();
-                }
-
-            }
-
-
-
-            requestId = window.requestAnimationFrame(render);
-        }
-
-        function executeMoves() {
-            Object.keys(controller).forEach(key => {
-                controller[key].pressed && controller[key].func()
-            })
-        }
-
-        const controller = {
-            38: { pressed: false, func: bird.movePaddleUp },
-            32: { pressed: false, func: bird.movePaddleUp },
-        }
-
-        document.addEventListener("keydown", (e) => {
-            if (controller[e.keyCode]) {
-                controller[e.keyCode].pressed = true
-            }
-        })
-        document.addEventListener("keyup", (e) => {
-            if (controller[e.keyCode]) {
-                controller[e.keyCode].pressed = false
-                op = 8;
-            }
-        })
-
-        let requestId = window.requestAnimationFrame(render);
-    </script>
-
-</body>
-
-</html>
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="utf-8">
-    <title>FlappyBird</title>
-    <style>
-        #display {
-            font-weight: bold;
-            background-color: yellow;
-            color: blue;
-            text-align: center;
-            font-size: 50pt;
-        }
-    </style>
-</head>
-
-<body>
-
-    <canvas id="myCanvas" width="600" height="560" style="border:1px solid #000000;">
-    </canvas>
-    <div id="display"></div>
-    <script>
-        const getRandomColumnPosition = () => Math.floor((Math.random() * 430) + 350);
+        const getRandomColumnPosition = () => Math.floor((Math.random() * (460 - 350 + 1)) + 350);
         var canvas = document.getElementById("myCanvas");
         var ctx = canvas.getContext("2d");
         var delataBird = 5;
@@ -157,9 +35,8 @@
             dy: 0,
             movePaddleUp: function () {
                 if (bird.y - bird.size >= 0) {
-                    bird.dy = -3
+                    bird.dy = -3;
                 };
-
             }
         };
 
@@ -167,7 +44,8 @@
             cords: [
                 { x1: 380, y1: getRandomColumnPosition(), x2: 420, y2: 560 },
                 { x1: 620, y1: getRandomColumnPosition(), x2: 660, y2: 560 },
-                { x1: 860, y1: getRandomColumnPosition(), x2: 900, y2: 560 },]
+                { x1: 860, y1: getRandomColumnPosition(), x2: 900, y2: 560 },
+            ]
         };
 
         function render() {
@@ -185,15 +63,6 @@
             ctx.beginPath();
             ctx.arc(bird.x, bird.y, 20, 0, 2 * Math.PI);
             ctx.stroke();
-            if (columns.cords[0].y1 >= 520) {
-                columns.cords[0].y1 = getRandomColumnPosition();
-            };
-            if (columns.cords[1].y1 >= 520) {
-                columns.cords[1].y1 = getRandomColumnPosition();
-            };
-            if (columns.cords[2].y1 >= 520) {
-                columns.cords[2].y1 = getRandomColumnPosition();
-            };
             for (var i = 0; i < 3; i++) {
                 ctx.rect(columns.cords[i].x1, columns.cords[i].y1, columns.cords[i].x2 - columns.cords[i].x1, columns.cords[i].y2 - columns.cords[i].y1);
                 ctx.rect(columns.cords[i].x1, 0, columns.cords[i].x2 - columns.cords[i].x1, columns.cords[i].y1 - hole);
@@ -205,7 +74,6 @@
                     columns.cords[i].x2 = canvas.height + 140;
                     columns.cords[i].y1 = getRandomColumnPosition();
                 }
-
             }
             requestId = window.requestAnimationFrame(render);
         }
@@ -232,7 +100,6 @@
         })
         let requestId = window.requestAnimationFrame(render);
     </script>
-
 </body>
 
 </html>
