@@ -7,11 +7,17 @@
         #MyCanvas {
             border: 1px solid #000000;
         }
+
+        #buton {
+            padding: 40px;
+            display: block;
+        }
     </style>
 </head>
 
 <body>
     <canvas id='MyCanvas' height="600" width="800"></canvas>
+    <button id='buton' onclick="bird.move">Jump</button>
     <script>
         let canvas = document.getElementById("MyCanvas");
         let ctx = canvas.getContext("2d");
@@ -38,11 +44,11 @@
 
         function checkLose() {
             if (bird.y < 0 || bird.y + bird.height > canvas.height) {
-                location.reload();
                 return true;
             }
             return false;
         }
+
         function checkLose1(rect1, rect2) {
             if (rect1.x < rect2.x + rect2.width &&
                 rect1.x + rect1.width > rect2.x &&
@@ -86,19 +92,14 @@
                 return;
             }
             requestId = window.requestAnimationFrame(render);
-
         };
-
         for (let i = 0; i < 4; i++) {
             let colunm = { x: i * 210 + 300, y: 0, width: 40, height: getRandom() };
             columns.push({ up: colunm, down: { ...colunm, y: colunm.height + hole, height: canvas.height - (colunm.height + hole) }, scored: false });
-
         }
         document.addEventListener('keydown', bird.move);
         document.addEventListener('click', bird.move);
         let requestId = window.requestAnimationFrame(render);
-
-
 
     </script>
 </body>
