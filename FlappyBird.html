@@ -9,7 +9,7 @@
         }
 
         #buton {
-            padding: 80px;
+            padding: 40px;
             display: block;
         }
     </style>
@@ -27,7 +27,7 @@
         let score = 0;
         let bird = {
             x: 100,
-            y: canvas.height / 2,
+            y: canvas.height / 2 - 50,
             width: 25,
             height: 25,
             dy: 0,
@@ -91,7 +91,8 @@
             if (checkLose()) {
                 return;
             }
-            requestId = window.requestAnimationFrame(render);
+
+            window.requestAnimationFrame(render);
         };
         for (let i = 0; i < 4; i++) {
             let colunm = { x: i * 210 + 300, y: 0, width: 40, height: getRandom() };
@@ -99,8 +100,7 @@
         }
         document.addEventListener('keydown', bird.move);
         document.addEventListener('click', bird.move);
-        let requestId = window.requestAnimationFrame(render);
-
+        setTimeout(() => window.requestAnimationFrame(render), 1000);
     </script>
 </body>
 
