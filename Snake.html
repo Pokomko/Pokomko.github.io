@@ -64,9 +64,9 @@ margin-top: 0px;
         }
 
         function checklose() {
-            if ((snakepos[0].x - 1 < 0 || snakepos[0].y - 1 < 0 || snakepos[0].x + snake.size + 1 > canvas.width || snakepos[0].x + snake.size + 1 > canvas.height)) {
+            if ((snakepos[0].x < 0 || snakepos[0].y < 0 || snakepos[0].x + snake.size > canvas.width || snakepos[0].y + snake.size > canvas.height)) {
+                clearInterval(intervalID);
                 display.innerHTML = "проиграл";
-                clearInterval(intervalID)
 
             }
 
