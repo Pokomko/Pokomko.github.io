@@ -24,9 +24,10 @@ margin-bottom: 0px;
 margin-right: 0px;
 margin-top: 0px;
 ">
-    <canvas id="myCanvas" width="420" height="420" style="border:1px solid #000000;">
+    <canvas id="myCanvas" width="625" height="625" style="border:1px solid #000000;">
     </canvas>
     <div id="display"></div>
+    <input type="button" onclick="setTimeout(location.reload,1000)" value="Reset">
     <script>
         var canvas = document.getElementById("myCanvas");
         var time = 130;
@@ -102,12 +103,7 @@ margin-top: 0px;
 
         document.addEventListener("keydown", (e) => {
             if (controller[e.keyCode]) {
-                controller[e.keyCode].pressed = true
-            }
-        })
-        document.addEventListener("keyup", (e) => {
-            if (controller[e.keyCode]) {
-                controller[e.keyCode].pressed = false
+                controller[e.keyCode].func()
             }
         })
         var intervalID = setInterval(render, time)
