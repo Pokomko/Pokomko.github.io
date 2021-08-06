@@ -72,8 +72,9 @@ margin-top: 0px;
         };
 
         function reset() {
-            setTimeout(location.reload, 2000);
+            setTimeout(() => location.reload(), 2000);
         }
+
         function render() {
             checklose();
             ctx.clearRect(0, 0, canvas.width, canvas.height);
