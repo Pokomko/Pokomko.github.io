@@ -16,8 +16,6 @@
 </head>
 
 
-
-
 <body style="
 margin-left: 0px;
 margin-bottom: 0px;
@@ -27,7 +25,7 @@ margin-top: 0px;
     <canvas id="myCanvas" width="625" height="625" style="border:1px solid #000000;">
     </canvas>
     <div id="display"></div>
-    <input type="button" onclick="setTimeout(location.reload,1000)" value="Reset">
+    <input type="button" onclick="reset()" value="Reset">
     <script>
         var canvas = document.getElementById("myCanvas");
         var time = 130;
@@ -73,9 +71,11 @@ margin-top: 0px;
 
         };
 
+        function reset() {
+            setTimeout(location.reload, 2000);
+        }
         function render() {
-            checklose()
-            executeMoves();
+            checklose();
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.beginPath();
             snakepos.unshift({ x: snakepos[0].x - dx, y: snakepos[0].y - dy })
@@ -89,11 +89,7 @@ margin-top: 0px;
 
             }
         }
-        function executeMoves() {
-            Object.keys(controller).forEach(key => {
-                controller[key].pressed && controller[key].func()
-            })
-        }
+
         const controller = {
             87: { pressed: false, func: snake.moveUp },
             83: { pressed: false, func: snake.moveDown },
