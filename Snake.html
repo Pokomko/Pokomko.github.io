@@ -27,16 +27,24 @@ margin-top: 0px;
     <div id="display"></div>
     <input type="button" onclick="reset()" value="Reset">
     <script>
+        const getRandomFoodPos = () => Math.floor((Math.random() * 575) + 25);
+        var food = {
+            x: getRandomFoodPos(),
+            y: getRandomFoodPos(),
+            size: 20,
+            scored: false,
+        }
         var canvas = document.getElementById("myCanvas");
         var time = 130;
         var ctx = canvas.getContext("2d");
         let dx = 0;
-        let dy = 0;
+        let dy = 20;
         let snakepos = [{ x: canvas.width / 2 - 10, y: canvas.height / 2 - 10 },
         { x: canvas.width / 2 - 10, y: canvas.height / 2 - 30 },
         { x: canvas.width / 2 - 10, y: canvas.height / 2 - 50 },
         { x: canvas.width / 2 - 10, y: canvas.height / 2 - 70 },
         { x: canvas.width / 2 - 10, y: canvas.height / 2 - 90 },
+        { x: canvas.width / 2 - 10, y: canvas.height / 2 - 110 },
         ];
         let snake = {
             size: 20,
@@ -62,29 +70,53 @@ margin-top: 0px;
             },
         }
 
-        function checklose() {
+        function checkBoardlose() {
             if ((snakepos[0].x < 0 || snakepos[0].y < 0 || snakepos[0].x + snake.size > canvas.width || snakepos[0].y + snake.size > canvas.height)) {
                 clearInterval(intervalID);
                 display.innerHTML = "проиграл";
-
             }
 
         };
+        function checkSnakeLose(rect1, rect2) {
+            if (rect1.x < rect2.x + snake.size &&
+                rect1.x + rect1.size > rect2.x &&
+                rect1.y < rect2.y + snake.size &&
+                rect1.y + rect1.size > rect2.y) {
+                clearInterval(intervalID);
+                display.innerHTML = "проиграл";
+            }
+        }
 
         function reset() {
             setTimeout(() => location.reload(), 2000);
         }
 
+        function eat(rect1, rect2) {
+            if (rect1.x < rect2.x + rect2.size &&
+                rect1.x + snake.size > rect2.x &&
+                rect1.y < rect2.y + rect2.size &&
+                rect1.y + snake.size > rect2.y) {
+                food.scored = true;
+                food.x = getRandomFoodPos();
+                food.y = getRandomFoodPos();
+            }
+        }
+
+
         function render() {
-            checklose();
+            eat(snakepos[0], food);
+            checkBoardlose();
+            checkSnakeLose(snakepos[0], snakepos[3]);
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.beginPath();
             snakepos.unshift({ x: snakepos[0].x - dx, y: snakepos[0].y - dy })
             snakepos.pop();
+            ctx.fillStyle = "red";
+            ctx.fillRect(food.x, food.y, food.size, food.size)
             for (i = 0; i < 5; i++) {
                 ctx.fillStyle = "green";
                 ctx.fillRect(snakepos[i].x, snakepos[i].y, snake.size, snake.size);
-                ctx.lineWidth = 5;
+                ctx.lineWidth = 3;
                 ctx.strokeStyle = "black";
                 ctx.strokeRect(snakepos[i].x, snakepos[i].y, snake.size, snake.size);
 
