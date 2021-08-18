@@ -88,14 +88,14 @@ margin-top: 0px;
         }
 
         function reset() {
-            setTimeout(() => location.reload(), 2000);
+            setTimeout(() => location.reload(), 1500);
         }
 
         function eat(rect1, rect2) {
             if (rect1.x < rect2.x + rect2.size &&
                 rect1.x + snake.size > rect2.x &&
                 rect1.y < rect2.y + rect2.size &&
-                rect1.y + snake.size > rect2.y) {
+                rect1.y + snake.size > rect2.y && !food.scored) {
                 food.scored = true;
                 food.x = getRandomFoodPos() * 20;
                 food.y = getRandomFoodPos() * 20;
@@ -107,18 +107,22 @@ margin-top: 0px;
             eat(snakepos[0], food);
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.beginPath();
-            snakepos.unshift({ x: snakepos[0].x - dx, y: snakepos[0].y - dy })
-            snakepos.pop();
+            if (food.scored) {
+            } else {
+                snakepos.pop();
+                food.scored = false;
+            }
+            snakepos.unshift({ x: snakepos[0].x - dx, y: snakepos[0].y - dy });
             ctx.fillStyle = "red";
             ctx.fillRect(food.x, food.y, food.size, food.size)
-            for (i = 0; i < 5; i++) {
+            for (i = 0; i < snakepos.length; i++) {
                 ctx.fillStyle = "green";
                 ctx.fillRect(snakepos[i].x, snakepos[i].y, snake.size, snake.size);
                 ctx.lineWidth = 0;
                 ctx.strokeStyle = "black";
                 ctx.strokeRect(snakepos[i].x, snakepos[i].y, snake.size, snake.size);
             }
-            for (i = 2; i < 5; i++) {
+            for (i = 2; i < snakepos.length; i++) {
                 checkSnakeLose(snakepos[0], snakepos[i]);
             }
             checkBoardlose();
