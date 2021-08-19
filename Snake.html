@@ -111,7 +111,6 @@ margin-top: 0px;
                 food.scored = false;
             } else {
                 snakepos.pop();
-                food.scored = false;
             }
             snakepos.unshift({ x: snakepos[0].x - dx, y: snakepos[0].y - dy });
             ctx.fillStyle = "red";
