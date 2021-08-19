@@ -108,6 +108,7 @@ margin-top: 0px;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.beginPath();
             if (food.scored) {
+                food.scored = false;
             } else {
                 snakepos.pop();
                 food.scored = false;
