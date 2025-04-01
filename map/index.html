@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="leaflet/leaflet.js"></script>
+    <link rel="stylesheet" href="leaflet/leaflet.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+
+
+        .date-input {
+            display: flex;
+            gap: 5px;
+            margin: 5px 0;
+        }
+
+        .date-input input {
+            flex: 1;
+        }
+
+        .buttons button {
+            display: block;
+            width: 100%;
+            margin-top: 5px;
+            padding: 5px;
+            background-color: white;
+            border: 1px solid black;
+            cursor: pointer;
+        }
+    </style>
+    <title>Линии ЛЭП</title>
+</head>
+
+<body>
+    <div class="container">
+        <aside class="filter">
+            <div class="filter__group-creation">
+                <button class="filter__button">Создать новую <br>группу</button>
+                <select>
+                    <option value="blue">🔵 Синий</option>
+                    <option value="white">⚪ Белый</option>
+                    <option value="black">⚫ Черный</option>
+                    <option value="purple">🟣 Фиолетовый</option>
+                    <option value="orange">🟠 Оранжевый</option>
+                    <option value="red">🔴 Красный</option>
+                    <option value="green">🟢 Зеленый</option>
+                    <option value="yellow">🟡 Жёлтый</option>
+                    <option value="brown">🟤 Коричневый</option>
+                </select>
+            </div>
+            <div class="filter__list">
+                <div class="group">
+                    <div class="group__headline">
+                        <h3 class="group__title">Синий</h3>
+                        <button class="group__apply-btn">Применить</button>
+                    </div>
+                    <div class="group__filter dropdown-container">
+                        <fieldset class="filter-group__section">
+                            <legend>Напряжение</legend>
+                            <label><input type="checkbox" name="voltage" value="100"> 100 В</label>
+                            <label><input type="checkbox" name="voltage" value="200" checked> 200 В</label>
+                            <label><input type="checkbox" name="voltage" value="300"> 300 В</label>
+                        </fieldset>
+
+                        <fieldset class="filter-group__section">
+                            <legend>Техническое состояние</legend>
+                            <label><input type="radio" name="status" value="excellent"> Отличное</label>
+                            <label><input type="radio" name="status" value="normal" checked> В пределах нормы</label>
+                            <label><input type="radio" name="status" value="needs_attention"> Требуется
+                                вмешательство</label>
+                        </fieldset>
+
+                        <fieldset class="filter-group__section">
+                            <legend>Дата последнего обслуживания</legend>
+                            <div class="date-input">
+                                <input type="date" placeholder="Дата от">
+                                <input type="date" placeholder="Дата до">
+                            </div>
+                        </fieldset>
+
+                        <div class="buttons">
+                            <button>Последние полгода</button>
+                            <button>Последний год</button>
+                            <button>Последние 2 года</button>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+        </aside>
+        <main class="main">
+            <div class="map" id="map"></div>
+            <div class="legend">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam, esse.</div>
+        </main>
+    </div>
+    <script src="js/javascript.js"></script>
+</body>
+
+</html>
