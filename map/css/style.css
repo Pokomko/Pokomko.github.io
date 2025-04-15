@@ -46,7 +46,7 @@ button:focus {
 }
 
 .filter__list {
-    overflow-y: scroll;
+    overflow-y: auto;
     font-size: 24px;
 }
 
@@ -55,11 +55,15 @@ button:focus {
 }
 
 .dropdown-container {
-    display: none;
+    padding: 0;
+
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
 }
 
-.dropdown-container.show {
-    display: block;
+.dropdown-container.open {
+    max-height: 1000px; /* Достаточно большое значение */
 }
 
 .group__headline {
@@ -80,6 +84,7 @@ button:focus {
     padding: 10px;
     border: 1px solid #999;
     background-color: #ddd;
+
 }
 
 .group__filter label {
