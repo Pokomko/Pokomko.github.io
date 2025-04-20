@@ -6,29 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="leaflet/leaflet.css" />
     <link rel="stylesheet" href="css/style.css" />
-    <style>
-
-
-        .date-input {
-            display: flex;
-            gap: 5px;
-            margin: 5px 0;
-        }
-
-        .date-input input {
-            flex: 1;
-        }
-
-        .buttons button {
-            display: block;
-            width: 100%;
-            margin-top: 5px;
-            padding: 5px;
-            background-color: white;
-            border: 1px solid black;
-            cursor: pointer;
-        }
-    </style>
     <title>Линии ЛЭП</title>
 </head>
 
@@ -40,7 +17,6 @@
                 <select id="colorSelector">
                     <option value="blue">🔵 Синий</option>
                     <option value="white">⚪ Белый</option>
-                    <option value="black">⚫ Черный</option>
                     <option value="purple">🟣 Фиолетовый</option>
                     <option value="orange">🟠 Оранжевый</option>
                     <option value="red">🔴 Красный</option>
@@ -54,7 +30,7 @@
         </aside>
         <main class="main">
             <div class="map" id="map"></div>
-            <div class="legend">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam, esse.</div>
+            <div class="legend"></div>
         </main>
     </div>
     <script src="leaflet/leaflet.js"></script>

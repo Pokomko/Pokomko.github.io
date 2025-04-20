@@ -24,7 +24,7 @@ button:focus {
 .filter {
     padding: 5px 0px;
     background-color: #B8B8B8;
-    width: 400px;
+    width: 370px;
     flex-shrink: 0;
     flex-grow: 0;
     display: flex;
@@ -59,11 +59,12 @@ button:focus {
 
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.4s ease;
+    transition: max-height 0.1s ease;
 }
 
 .dropdown-container.open {
     max-height: 1000px; /* Достаточно большое значение */
+    padding: 10px;
 }
 
 .group__headline {
@@ -71,8 +72,11 @@ button:focus {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+
     border:black solid 1px;
     padding: 5px;
+
+    user-select: none;
 }
 
 .group__apply-btn {
@@ -81,8 +85,6 @@ button:focus {
 }
 
 .group__filter {
-    padding: 10px;
-    border: 1px solid #999;
     background-color: #ddd;
 
 }
@@ -101,10 +103,38 @@ button:focus {
     padding: 0 5px;
 }
 
+.date-input {
+    display: flex;
+    gap: 5px;
+    margin: 5px 0;
+}
+
+.date-input input {
+    flex: 1;
+}
+
+.buttons button {
+    display: block;
+    width: 100%;
+    margin-top: 5px;
+    padding: 5px;
+    background-color: white;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
 .main {
     flex-grow: 1;
 }
 
 .map {
     height: 80%;
+}
+
+.legend {
+    display: flex;
+}
+
+.legend-item {
+    padding: 10px;
 }
