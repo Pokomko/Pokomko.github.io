@@ -232,6 +232,7 @@ function reDrawAllFiltered() {
     });
 }
 
+
 // Ждём загрузки документа
 document.addEventListener("DOMContentLoaded", function () {
     map = L.map('map').setView([51.505, -0.09], 13);
@@ -313,4 +314,14 @@ document.addEventListener("DOMContentLoaded", function () {
     if (allCoords.length > 0) {
         map.fitBounds(allCoords);
     }
+
+    map.on('popupopen', function (e) {
+        const button = e.popup._contentNode.querySelector('.request-btn');
+        if (button) {
+            const lineId = button.dataset.id;
+            button.addEventListener('click', () => {
+                console.log(lineId);
+            });
+        }
+    });
 });
