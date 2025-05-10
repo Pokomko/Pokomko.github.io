@@ -3,15 +3,15 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Крестики Нолики для Хохлов</title>
+    <title>TicTacToe</title>
 
     <style>
         #poe {
             font-weight: bold;
             background-color: yellow;
-            color: blue;
+            color: black;
             text-align: center;
-            font-size: 150pt;
+            font-size: 50pt;
         }
 
         button {
@@ -22,7 +22,7 @@
             background-color: yellow;
 
             font-weight: bold;
-            color: blue;
+            color: black;
         }
     </style>
 </head>
@@ -75,7 +75,7 @@
 
         function sayWin(winner) {
             finished = true;
-            display.innerHTML = "Миша ЛОХ <br> выйграл " + winner;
+            display.innerHTML = "Выйграл " + winner;
         }
 
         function checkWin() {
